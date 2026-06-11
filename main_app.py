@@ -1,3 +1,18 @@
+import sys
+import os
+
+# Ye current directory ka path dhoondhega
+curr_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Backend aur Engines folders ko path mein jodd dega
+sys.path.append(os.path.join(curr_dir, 'backend'))
+sys.path.append(os.path.join(curr_dir, 'engines'))
+
+# Ab imports wahi rahenge jo tumne likhe hain
+from backend.db_connect import get_db_connection
+from engines.sql_engine import run_sql_query, initialize_db, drop_table, reset_entire_db
+from engines.python_sandbox import run_python_code
+
 import streamlit as st
 import pandas as pd
 import os

@@ -1,0 +1,20 @@
+/* style.css */
+.stApp {
+    background-color: #ffffff !important;
+}
+
+.stMarkdown, .stText, .stTextInput, label {
+    color: #000000 !important;
+}
+
+.chat-container {
+    height: 300px;
+    overflow-y: auto;
+    border: 2px solid #333 !important;
+    padding: 10px;
+    background-color: #f0f0f0 !important;
+    border-radius: 8px;
+    margin-top: 10px;
+    color: #000000 !important;
+    font-weight: 500;
+}

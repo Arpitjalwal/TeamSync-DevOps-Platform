@@ -8,6 +8,12 @@ def run_sql_query(query):
     dono queries ko handle karta hai.
     """
     try:
+        # --- Naya Logic: User friendly commands ke liye ---
+        clean_query = query.strip().upper()
+        if clean_query == "SHOW TABLES;":
+            query = "SELECT name FROM sqlite_master WHERE type='table';"
+        # --------------------------------------------------
+
         conn = get_db_connection()
         cursor = conn.cursor()
         
@@ -29,16 +35,26 @@ def run_sql_query(query):
     except Exception as e:
         return {"data": None, "error": str(e)}
 
-# Baki purane functions waise hi rahenge
 def initialize_db():
+    """Database connection initialize karne ke liye."""
     conn = get_db_connection()
     conn.close()
 
 def drop_table(table_name):
+    """Specific table delete karne ke liye."""
     conn = get_db_connection()
     conn.execute(f"DROP TABLE IF EXISTS {table_name}")
+    conn.commit()
     conn.close()
 
 def reset_entire_db():
-    # Saari tables delete karne ka logic
-    pass
+    """Saari tables delete karke database ko reset karne ke liye."""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    # Saari tables ki list nikalo
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tables = cursor.fetchall()
+    for table in tables:
+        cursor.execute(f"DROP TABLE {table[0]}")
+    conn.commit()
+    conn.close()
